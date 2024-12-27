@@ -70,35 +70,26 @@
             </div>
         </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Ensure Supabase is initialized correctly
             const supabaseUrl = 'https://khhpbnpdtkvymrycvtgi.supabase.co';
             const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoaHBibnBkdGt2eW1yeWN2dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyODQzNzAsImV4cCI6MjA1MDg2MDM3MH0.RGTy42QZUyb-cdmtWnzLa199u4N20kLEaVmC9yoPtus';
-            const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+            const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
             document.getElementById('signup-form').addEventListener('submit', async (event) => {
                 event.preventDefault();
-
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
 
-                try {
-                    const { data, error } = await supabase
-                        .from('users')
-                        .insert([{ Usernames: username, Password: password }]);
-                    
-                    if (error) {
-                        console.error('Error:', error);
-                        alert('Failed to sign up. Please try again.');
-                    } else {
-                        sessionStorage.setItem('username', username);
-                        sessionStorage.setItem('userId', data[0].id);
-                        window.location.href = 'profile.html';
-                    }
-                } catch (err) {
-                    console.error('Unexpected error:', err);
+                const { data, error } = await supabase.from('users').insert([{ Usernames: username, Password: password }]);
+                if (error) {
+                    console.error('Error:', error);
+                    alert('Failed to sign up. Please try again.');
+                } else {
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('userId', data[0].id);
+                    window.location.href = 'profile.html';
                 }
             });
         });
