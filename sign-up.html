@@ -70,26 +70,32 @@
             </div>
         </form>
     </div>
+    <!-- Ensure this script is included and loaded before using Supabase client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest/dist/umd/supabase.js"></script>
     <script>
-        // Initialize Supabase client before using it
-        const supabaseUrl = 'https://khhpbnpdtkvymrycvtgi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoaHBibnBkdGt2eW1yeWN2dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyODQzNzAsImV4cCI6MjA1MDg2MDM3MH0.RGTy42QZUyb-cdmtWnzLa199u4N20kLEaVmC9yoPtus';
-        const supabase = supabase.createClient(https://khhpbnpdtkvymrycvtgi.supabase.co,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoaHBibnBkdGt2eW1yeWN2dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyODQzNzAsImV4cCI6MjA1MDg2MDM3MH0.RGTy42QZUyb-cdmtWnzLa199u4N20kLEaVmC9yoPtus);
+        // Ensure the Supabase script is fully loaded
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Initialize Supabase client
+            const supabaseUrl = 'https://khhpbnpdtkvymrycvtgi.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoaHBibnBkdGt2eW1yeWN2dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyODQzNzAsImV4cCI6MjA1MDg2MDM3MH0.RGTy42QZUyb-cdmtWnzLa199u4N20kLEaVmC9yoPtus';
+            const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        document.getElementById('signup-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            // Event listener for form submission
+            document.getElementById('signup-form').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
 
-            const { data, error } = await supabase.from('users').insert([{ Usernames: username, Password: password }]);
-            if (error) {
-                console.error('Error:', error);
-            } else {
-                sessionStorage.setItem('username', username);
-                sessionStorage.setItem('userId', data[0].id);
-                window.location.href = 'profile.html';
-            }
+                // Insert user into Supabase
+                const { data, error } = await supabase.from('users').insert([{ Usernames: username, Password: password }]);
+                if (error) {
+                    console.error('Error:', error);
+                } else {
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('userId', data[0].id);
+                    window.location.href = 'profile.html';
+                }
+            });
         });
     </script>
 </body>
