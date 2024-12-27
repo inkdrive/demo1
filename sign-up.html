@@ -72,8 +72,9 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest/dist/umd/supabase.js"></script>
     <script>
-        const supabaseUrl = 'https://khhpbnpdtkvymrycvtgi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoaHBibnBkdGt2eW1yeWN2dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyODQzNzAsImV4cCI6MjA1MDg2MDM3MH0.RGTy42QZUyb-cdmtWnzLa199u4N20kLEaVmC9yoPtus';
+        // Initialize Supabase client before using it
+        const supabaseUrl = 'https://your-project.supabase.co';
+        const supabaseKey = 'your-anon-key';
         const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
         document.getElementById('signup-form').addEventListener('submit', async (event) => {
